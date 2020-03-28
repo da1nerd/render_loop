@@ -22,8 +22,12 @@ module Prism::Core
     abstract def mouse_button_pressed?(b : MouseButton) : Bool
     abstract def cursor : Cursor
     abstract def cursor(c : Cursor)
-    abstract def keys : Array(Key)
-    abstract def mouse_buttons : Array(MouseButton)
+    def keys : Array(Key)
+      Key.values
+    end
+    def mouse_buttons : Array(MouseButton)
+      MouseButton.values
+    end
     abstract def swap_buffers
     abstract def destroy
   end

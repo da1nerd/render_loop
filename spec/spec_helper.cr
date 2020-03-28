@@ -49,14 +49,6 @@ class TestWindow < Prism::Core::Window(Key, MouseButton)
     }, true)
   end
 
-  def keys : Array(Key)
-    Key.values
-  end
-
-  def mouse_buttons : Array(MouseButton)
-    MouseButton.values
-  end
-
   def swap_buffers
   end
 
