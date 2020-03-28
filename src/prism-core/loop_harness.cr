@@ -1,27 +1,21 @@
-require "crystglfw"
-
 module Prism::Core
   # Manages the main rendering loop
-  # TODO: this should manage the rendering in a single window.
-  # So we should create the window and set up the loop inside it.
-  # This should not create it's own window.
-  #
   # TODO: put rendering and state in their own threads.
   class LoopHarness
     @frame_time : Float64
     @is_running : Bool
 
-    def initialize(@width : Int32, @height : Int32, frame_rate : Float64, @title : String, @game : Game)
+    def initialize(frame_rate : Float64, @tickers : Array(Tickable))
       @is_running = false
       @frame_time = 1.0f64 / frame_rate
     end
 
-    # Signals the graphics context to start up, and the loop to begin running.
-    def start
+    # Signals the loop to begin running in the *window*
+    # This should be ran inside your graphics context otherwise you will receive an error
+    # This is a noop if the loop is already running.
+    def start(window : Window)
       return if r = @is_running == true
-      CrystGLFW.run do
-        self.run
-      end
+      self.run(window)
     end
 
     # Signals the loop to finish up and stop, and the graphics context to shut down.
@@ -29,20 +23,31 @@ module Prism::Core
       @is_running = false
     end
 
+    # Executed before each tick in the main loop.
+    # This allows the graphics context to perform operations if necessary.
+    def on_tick(&block)
+      @on_tick_callback = block
+    end
+
+    # Executed before each render in the main loop.
+    # This allows the graphics context to perform operations if necessary.
+    def on_render(&block)
+      @on_render_callback = block
+    end
+
     # Sets up the main loop
-    private def run
+    # This is ran inside the graphics context
+    private def run(window : Window)
       return if @is_running
       @is_running = true
 
-      window = CrystGLFW::Window.new(title: @title, width: @width, height: @height)
-      window.make_context_current
-
       input = Input.new(window)
-      @rendering_engine = RenderingEngine.new
 
       frames = 0
       frame_counter = 0
-      @game.init
+      @tickers.each do |t|
+        t.startup
+      end
 
       last_time = Time.monotonic.total_seconds
       unprocessed_time : Float64 = 0.0
@@ -56,20 +61,22 @@ module Prism::Core
         unprocessed_time += passed_time
         frame_counter += passed_time
 
-        while unprocessed_time > @frametime
+        while unprocessed_time > @frame_time
           should_render = true
+          unprocessed_time -= @frame_time
 
-          unprocessed_time -= @frametime
-
-          CrystGLFW.poll_events
+          if callback = @on_tick_callback
+            callback.call
+          end
 
           if window.should_close?
             stop()
           end
 
-          @game.input(@frametime.to_f32, input)
-          input.update
-          @game.update(@frametime.to_f32)
+          @tickers.each do |t|
+            t.tick(@frame_time, input)
+          end
+          input.tick
 
           # log frame rate
           if (frame_counter >= 1.0)
@@ -80,10 +87,16 @@ module Prism::Core
         end
 
         if should_render
-          LibGL.viewport(0, 0, window.size[:width], window.size[:height])
-          @game.render(rendering_engine)
+          if callback = @on_render_callback
+            callback.call
+          end
+          @tickers.each do |t|
+            t.render
+          end
           window.swap_buffers
-          rendering_engine.flush
+          @tickers.each do |t|
+            t.flush
+          end
           frames += 1
         else
           # sleep for 1 millisecond
@@ -91,6 +104,9 @@ module Prism::Core
         end
       end
 
+      @tickers.each do |t|
+        t.shutdown
+      end
       window.destroy
     end
   end

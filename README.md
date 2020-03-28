@@ -1,6 +1,6 @@
 # prism-core
 
-TODO: Write a description here
+These are a set of generic tools for building a rendering engine with any graphics context you want.
 
 ## Installation
 

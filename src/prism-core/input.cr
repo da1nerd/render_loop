@@ -1,21 +1,16 @@
+require "./tickable"
+
 module Prism::Core
-  class Input
-    # Keys enum.
-    # This is an alias of [CrystalGLFW::Key](https://calebuharrison.gitbooks.io/crystglfw-guide/content/deep-dive/keys.html)
-    alias Key = CrystGLFW::Key
-
-    # Mouse buttons enum.
-    # This is an alias of [CrystalGLFW::Key](https://calebuharrison.gitbooks.io/crystglfw-guide/content/deep-dive/mouse-buttons.html)
-    alias MouseButton = CrystGLFW::MouseButton
-
+  # Provides a helpful wrapper over window input.
+  class Input(Key, MouseButton)
     @last_mouse = {} of MouseButton => Bool
     @last_keys = {} of Key => Bool
 
-    def initialize(@window : CrystGLFW::Window)
+    def initialize(@window : Prism::Core::Window(Key, MouseButton))
     end
 
     # Processes the window input during each update tick
-    def update
+    def tick
       Key.each do |k|
         @last_keys[k] = self.get_key(k)
       end
@@ -27,8 +22,8 @@ module Prism::Core
     # Checks if the key is currently down
     def get_key(key_code : Key) : Bool
       # TRICKY: for some reason these keys are invalid
-      return false if key_code === Key::Unknown || key_code === Key::ModShift || key_code === Key::ModAlt || key_code === Key::ModSuper || key_code === Key::ModControl
-      return @window.key_pressed?(key_code.as(CrystGLFW::Key))
+      # return false if key_code === Key::Unknown || key_code === Key::ModShift || key_code === Key::ModAlt || key_code === Key::ModSuper || key_code === Key::ModControl
+      return @window.key_pressed?(key_code.as(Key))
     end
 
     # Checks if the key was pressed in this frame
@@ -60,7 +55,7 @@ module Prism::Core
 
     # Check if the mouse button is currently down
     def get_mouse(mouse_button : MouseButton) : Bool
-      return @window.mouse_button_pressed?(mouse_button.as(CrystGLFW::MouseButton))
+      return @window.mouse_button_pressed?(mouse_button.as(MouseButton))
     end
 
     # Checks if the mouse button was pressed in this frame
@@ -74,13 +69,13 @@ module Prism::Core
     end
 
     # Returns the position of the mouse
-    def get_mouse_position : Vector2f
+    def get_mouse_position : Math::Vector2f
       cursor = @window.cursor
-      return Vector2f.new(cursor.position[:x].to_f32, cursor.position[:y].to_f32)
+      return Math::Vector2f.new(cursor.position[:x].to_f32, cursor.position[:y].to_f32)
     end
 
     # Sets the mouse position within the window
-    def set_mouse_position(position : Vector2f)
+    def set_mouse_position(position : Math::Vector2f)
       @window.cursor.set_position(position.x, position.y)
     end
 
@@ -94,9 +89,9 @@ module Prism::Core
     end
 
     # Returns the center of the window
-    def get_center : Vector2f
+    def get_center : Math::Vector2f
       size = @window.size
-      return Vector2f.new(size[:width].to_f32 / 2.0f32, size[:height].to_f32 / 2.0f32)
+      return Math::Vector2f.new(size[:width].to_f32 / 2.0f32, size[:height].to_f32 / 2.0f32)
     end
   end
 end
