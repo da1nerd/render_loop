@@ -1,0 +1,9 @@
+name: prism-core
+version: 0.1.0
+
+authors:
+  - Joel <joel@neutrinographics.com>
+
+crystal: 0.33.0
+
+license: MIT
