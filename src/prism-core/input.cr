@@ -19,8 +19,6 @@ module Prism::Core
 
     # Checks if the key is currently down
     def get_key(key_code : Key) : Bool
-      # TRICKY: for some reason these keys are invalid
-      # return false if key_code === Key::Unknown || key_code === Key::ModShift || key_code === Key::ModAlt || key_code === Key::ModSuper || key_code === Key::ModControl
       return @window.key_pressed?(key_code.as(Key))
     end
 
