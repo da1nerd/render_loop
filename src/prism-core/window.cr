@@ -1,5 +1,5 @@
 module Prism::Core
-  alias Size = {width: Float64, height: Float64}
+  alias Size = {width: Int32, height: Int32}
   alias Position = {x: Float64, y: Float64}
 
   struct Cursor
@@ -13,6 +13,7 @@ module Prism::Core
   # so you can use any window context you want.
   # The generics `Key` and `MouseButton` are enums
   # that define the available values.
+  # TODO: maybe pass in the cursor as a generic as well so we we can reduce boilerplate.
   abstract class Window(Key, MouseButton)
     abstract def should_close? : Bool
     abstract def size : Size
