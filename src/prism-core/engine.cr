@@ -1,6 +1,6 @@
 module Prism::Core
-  # Receives tick events from the main loop
-  abstract class Tickable
+  # Receives events from the main loop
+  abstract class Engine
     # Called when the main loop is starting up.
     # Use this to set things up.
     def startup
@@ -8,7 +8,7 @@ module Prism::Core
 
     # Called at each iteration of the main loop.
     # This is when game state should be updated.
-    abstract def tick(frame_time : Float64, input : Input)
+    abstract def tick(tick : Tick, input : Input)
 
     # Called at intervals desigated by the configured frame rate.
     # This is used to render the scene.

@@ -11,8 +11,8 @@ enum MouseButton
   Button2
 end
 
-class TestGame < Prism::Core::Tickable
-  def tick(frame_time : Float64, input : Prism::Core::Input)
+class TestGame < Prism::Core::Engine
+  def tick(tick : Prism::Core::Tick, input : Prism::Core::Input)
   end
 end
 

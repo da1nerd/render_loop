@@ -1,5 +1,3 @@
-require "./tickable"
-
 module Prism::Core
   # Provides a helpful wrapper over window input.
   class Input(Key, MouseButton)

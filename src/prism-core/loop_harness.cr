@@ -5,7 +5,7 @@ module Prism::Core
     @frame_time : Float64
     @is_running : Bool
 
-    def initialize(frame_rate : Float64, @tickers : Array(Tickable))
+    def initialize(frame_rate : Float64, @engines : Array(Engine))
       @is_running = false
       @frame_time = 1.0f64 / frame_rate
     end
@@ -40,12 +40,13 @@ module Prism::Core
     private def run(window : Window)
       return if @is_running
       @is_running = true
+      startup_time = Time.monotonic.total_seconds # when the loop started
 
       input = Input.new(window)
 
-      frames = 0
-      frame_counter = 0
-      @tickers.each do |t|
+      # frames = 0
+      # frame_counter = 0
+      @engines.each do |t|
         t.startup
       end
 
@@ -59,9 +60,10 @@ module Prism::Core
         last_time = start_time
 
         unprocessed_time += passed_time
-        frame_counter += passed_time
+        # frame_counter += passed_time
 
         while unprocessed_time > @frame_time
+          # Process game logic
           should_render = true
           unprocessed_time -= @frame_time
 
@@ -73,38 +75,41 @@ module Prism::Core
             stop()
           end
 
-          @tickers.each do |t|
-            t.tick(@frame_time, input)
+          tick = Tick.new(@frame_time, passed_time, startup_time)
+          @engines.each do |t|
+            t.tick(tick, input)
           end
           input.tick
 
           # log frame rate
-          if (frame_counter >= 1.0)
-            # puts "fps: #{frames}"
-            frames = 0
-            frame_counter = 0
-          end
+          # TODO: move this out of this inner loop.
+          # if (frame_counter >= 1.0)
+          #   # puts "fps: #{frames}"
+          #   frames = 0
+          #   frame_counter = 0
+          # end
         end
 
         if should_render
+          # Render a frame
           if callback = @on_render_callback
             callback.call
           end
-          @tickers.each do |t|
+          @engines.each do |t|
             t.render
           end
           window.swap_buffers
-          @tickers.each do |t|
+          @engines.each do |t|
             t.flush
           end
-          frames += 1
+          # frames += 1
         else
           # sleep for 1 millisecond
           sleep(Time::Span.new(nanoseconds: 1000000))
         end
       end
 
-      @tickers.each do |t|
+      @engines.each do |t|
         t.shutdown
       end
       window.destroy
