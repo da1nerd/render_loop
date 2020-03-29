@@ -18,17 +18,20 @@ module Prism::Core
     abstract def should_close? : Bool
     abstract def size : Size
     abstract def size(s : Size)
-    abstract def render
+    abstract def render # TODO: this is not needed
     abstract def key_pressed?(k : Key) : Bool
     abstract def mouse_button_pressed?(b : MouseButton) : Bool
     abstract def cursor : Cursor
     abstract def cursor(c : Cursor)
+
     def keys : Array(Key)
       Key.values
     end
+
     def mouse_buttons : Array(MouseButton)
       MouseButton.values
     end
+
     abstract def swap_buffers
     abstract def destroy
   end
