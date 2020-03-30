@@ -73,8 +73,8 @@ module Prism::Core
     # Sets the mouse position within the window
     def set_mouse_position(position : Math::Vector2f)
       @window.cursor_position = {
-        x: position.x,
-        y: position.y,
+        x: position.x.to_f64,
+        y: position.y.to_f64,
       }.as(Prism::Core::Position)
     end
 
