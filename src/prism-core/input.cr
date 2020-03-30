@@ -74,13 +74,13 @@ module Prism::Core
     def set_mouse_position(position : Math::Vector2f)
       @window.cursor_position = {
         x: position.x,
-        y: position.y
-      }
+        y: position.y,
+      }.as(Prism::Core::Position)
     end
 
     # Controls the cursor visibility within the window
     def set_cursor(enabled : Bool)
-      @window.cursor_visible(enabled)
+      @window.cursor_visible = enabled
     end
 
     # Returns the center of the window
