@@ -66,22 +66,21 @@ module Prism::Core
 
     # Returns the position of the mouse
     def get_mouse_position : Math::Vector2f
-      cursor = @window.cursor
-      return Math::Vector2f.new(cursor.position[:x].to_f32, cursor.position[:y].to_f32)
+      position = @window.cursor_position
+      return Math::Vector2f.new(position[:x].to_f32, position[:y].to_f32)
     end
 
     # Sets the mouse position within the window
     def set_mouse_position(position : Math::Vector2f)
-      @window.cursor.set_position(position.x, position.y)
+      @window.cursor_position = {
+        x: position.x,
+        y: position.y
+      }
     end
 
     # Controls the cursor visibility within the window
     def set_cursor(enabled : Bool)
-      if enabled
-        @window.cursor.normalize
-      else
-        @window.cursor.hide
-      end
+      @window.cursor_visible(enabled)
     end
 
     # Returns the center of the window

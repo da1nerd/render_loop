@@ -39,14 +39,21 @@ class TestWindow < Prism::Core::Window(Key, MouseButton)
     false
   end
 
-  def cursor(c : Prism::Core::Cursor)
+  def cursor_position(position : Prism::Core::Position)
   end
 
-  def cursor : Prism::Core::Cursor
-    Prism::Core::Cursor.new({
+  def cursor_position : Prism::Core::Position
+    {
       x: 1f64,
       y: 1f64,
-    }, true)
+    }
+  end
+
+  def cursor_visible(visible : Bool)
+  end
+
+  def cursor_visible? : Bool
+    true
   end
 
   def swap_buffers

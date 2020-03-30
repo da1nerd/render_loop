@@ -21,8 +21,10 @@ module Prism::Core
     abstract def render # TODO: this is not needed
     abstract def key_pressed?(k : Key) : Bool
     abstract def mouse_button_pressed?(b : MouseButton) : Bool
-    abstract def cursor : Cursor
-    abstract def cursor(c : Cursor)
+    abstract def cursor_position : Position
+    abstract def cursor_position(position : Position)
+    # abstract def cursor_visible? : Bool
+    abstract def cursor_visible(visible : Bool)
 
     def keys : Array(Key)
       Key.values
