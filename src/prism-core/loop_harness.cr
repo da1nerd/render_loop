@@ -31,9 +31,9 @@ module Prism::Core
 
     # Executed before each render in the main loop.
     # This allows the graphics context to perform operations if necessary.
-    def on_render(&block)
-      @on_render_callback = block
-    end
+    # def on_render(&block)
+    #   @on_render_callback = block
+    # end
 
     # Sets up the main loop
     # This is ran inside the graphics context
@@ -76,8 +76,8 @@ module Prism::Core
           end
 
           tick = Tick.new(@frame_time, passed_time, startup_time)
-          @engines.each do |t|
-            t.tick(tick, input)
+          @engines.each do |e|
+            e.tick(tick, input)
           end
           input.tick
 
@@ -92,15 +92,20 @@ module Prism::Core
 
         if should_render
           # Render a frame
-          if callback = @on_render_callback
-            callback.call
+          # TODO: this can be deprecated and the rendering engine can handle stuff here.
+          # maybe to do that we need to pass the window to the render call.
+          # This way we could get important information about the environment.
+          # e.g. dimensions
+          # we can already get the window size from the input so maybe we should track that internally and update in render.
+          # if callback = @on_render_callback
+          #   callback.call
+          # end
+          @engines.each do |e|
+            e.render
           end
-          @engines.each do |t|
-            t.render
-          end
-          window.swap_buffers
-          @engines.each do |t|
-            t.flush
+          window.render
+          @engines.each do |e|
+            e.flush
           end
           # frames += 1
         else
@@ -109,8 +114,8 @@ module Prism::Core
         end
       end
 
-      @engines.each do |t|
-        t.shutdown
+      @engines.each do |e|
+        e.shutdown
       end
       window.destroy
     end

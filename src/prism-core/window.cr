@@ -18,7 +18,8 @@ module Prism::Core
     abstract def should_close? : Bool
     abstract def size : Size
     abstract def size(s : Size)
-    abstract def render # TODO: this is not needed
+    # This give the window an opportunity to paint to the screen
+    abstract def render
     abstract def key_pressed?(k : Key) : Bool
     abstract def mouse_button_pressed?(b : MouseButton) : Bool
     abstract def cursor_position : Position
@@ -34,7 +35,6 @@ module Prism::Core
       MouseButton.values
     end
 
-    abstract def swap_buffers
     abstract def destroy
   end
 end
