@@ -29,12 +29,6 @@ module Prism::Core
       @on_tick_callback = block
     end
 
-    # Executed before each render in the main loop.
-    # This allows the graphics context to perform operations if necessary.
-    # def on_render(&block)
-    #   @on_render_callback = block
-    # end
-
     # Sets up the main loop
     # This is ran inside the graphics context
     private def run(window : Window)
@@ -92,14 +86,6 @@ module Prism::Core
 
         if should_render
           # Render a frame
-          # TODO: this can be deprecated and the rendering engine can handle stuff here.
-          # maybe to do that we need to pass the window to the render call.
-          # This way we could get important information about the environment.
-          # e.g. dimensions
-          # we can already get the window size from the input so maybe we should track that internally and update in render.
-          # if callback = @on_render_callback
-          #   callback.call
-          # end
           @engines.each do |e|
             e.render
           end

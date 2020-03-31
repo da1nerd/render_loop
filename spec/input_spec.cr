@@ -23,7 +23,7 @@ describe Prism::Core::Input do
     it "correctly checks the mouse position" do
       w = TestWindow.new
       i = Prism::Core::Input(Key, MouseButton).new(w)
-      i.get_mouse_position.should eq(Prism::Core::Math::Vector2f.new(1, 1))
+      i.get_mouse_position.should eq({x: 1, y: 1})
     end
   end
 end

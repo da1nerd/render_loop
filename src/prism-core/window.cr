@@ -1,14 +1,4 @@
 module Prism::Core
-  alias Size = {width: Int32, height: Int32}
-  alias Position = {x: Float64, y: Float64}
-
-  struct Cursor
-    property position, visible
-
-    def initialize(@position : Position, @visible : Bool)
-    end
-  end
-
   # Produces an abstraction around a window object
   # so you can use any window context you want.
   # The generics `Key` and `MouseButton` are enums

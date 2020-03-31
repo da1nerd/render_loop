@@ -1,4 +1,14 @@
 module Prism::Core
+  alias Size = {width: Int32, height: Int32}
+  alias Position = {x: Float64, y: Float64}
+
+  struct Cursor
+    property position, visible
+
+    def initialize(@position : Position, @visible : Bool)
+    end
+  end
+
   # Provides a helpful wrapper over window input.
   class Input(Key, MouseButton)
     @last_mouse = {} of MouseButton => Bool
@@ -65,17 +75,13 @@ module Prism::Core
     end
 
     # Returns the position of the mouse
-    def get_mouse_position : Math::Vector2f
-      position = @window.cursor_position
-      return Math::Vector2f.new(position[:x].to_f32, position[:y].to_f32)
+    def get_mouse_position : Position
+      @window.cursor_position
     end
 
     # Sets the mouse position within the window
-    def set_mouse_position(position : Math::Vector2f)
-      @window.cursor_position = {
-        x: position.x.to_f64,
-        y: position.y.to_f64,
-      }.as(Prism::Core::Position)
+    def set_mouse_position(position : Position)
+      @window.cursor_position = position
     end
 
     # Controls the cursor visibility within the window
@@ -84,9 +90,11 @@ module Prism::Core
     end
 
     # Returns the center of the window
-    def get_center : Math::Vector2f
-      size = @window.size
-      return Math::Vector2f.new(size[:width].to_f32 / 2.0f32, size[:height].to_f32 / 2.0f32)
+    def get_center : Position
+      return {
+        x: @window.size[:width] / 2.0f64,
+        y: @window.size[:height] / 2.0f64,
+      }
     end
   end
 end
