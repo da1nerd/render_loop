@@ -8,7 +8,7 @@ module Prism::Core
 
     # Called at each iteration of the main loop.
     # This is when game state should be updated.
-    abstract def tick(tick : Tick, input : Input)
+    abstract def tick(tick : Prism::Core::Tick, input : Prism::Core::Input)
 
     # Called at intervals desigated by the configured frame rate.
     # This is used to render the scene.

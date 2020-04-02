@@ -5,7 +5,7 @@ module Prism::Core
     @frame_time : Float64
     @is_running : Bool
 
-    def initialize(frame_rate : Float64, @engines : Array(Engine))
+    def initialize(frame_rate : Float64, @engines : Array(Prism::Core::Engine))
       @is_running = false
       @frame_time = 1.0f64 / frame_rate
     end
@@ -13,7 +13,7 @@ module Prism::Core
     # Signals the loop to begin running in the *window*
     # This should be ran inside your graphics context otherwise you will receive an error
     # This is a noop if the loop is already running.
-    def start(window : Window)
+    def start(window : Prism::Core::Window)
       return if r = @is_running == true
       self.run(window)
     end
@@ -31,12 +31,12 @@ module Prism::Core
 
     # Sets up the main loop
     # This is ran inside the graphics context
-    private def run(window : Window)
+    private def run(window : Prism::Core::Window)
       return if @is_running
       @is_running = true
       startup_time = Time.monotonic.total_seconds # when the loop started
 
-      input = Input.new(window)
+      input = Prism::Core::Input.new(window)
 
       # frames = 0
       # frame_counter = 0
@@ -69,7 +69,7 @@ module Prism::Core
             stop()
           end
 
-          tick = Tick.new(@frame_time, passed_time, startup_time)
+          tick = Prism::Core::Tick.new(@frame_time, passed_time, startup_time)
           @engines.each do |e|
             e.tick(tick, input)
           end

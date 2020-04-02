@@ -5,7 +5,7 @@ module Prism::Core
   struct Cursor
     property position, visible
 
-    def initialize(@position : Position, @visible : Bool)
+    def initialize(@position : Prism::Core::Position, @visible : Bool)
     end
   end
 
@@ -75,12 +75,12 @@ module Prism::Core
     end
 
     # Returns the position of the mouse
-    def get_mouse_position : Position
+    def get_mouse_position : Prism::Core::Position
       @window.cursor_position
     end
 
     # Sets the mouse position within the window
-    def set_mouse_position(position : Position)
+    def set_mouse_position(position : Prism::Core::Position)
       @window.cursor_position = position
     end
 
@@ -90,7 +90,7 @@ module Prism::Core
     end
 
     # Returns the center of the window
-    def get_center : Position
+    def get_center : Prism::Core::Position
       return {
         x: @window.size[:width] / 2.0f64,
         y: @window.size[:height] / 2.0f64,
