@@ -1,11 +1,11 @@
-module Prism::Core
+module RenderLoop
   alias Size = {width: Int32, height: Int32}
   alias Position = {x: Float64, y: Float64}
 
   struct Cursor
     property position, visible
 
-    def initialize(@position : Prism::Core::Position, @visible : Bool)
+    def initialize(@position : RenderLoop::Position, @visible : Bool)
     end
   end
 
@@ -14,7 +14,7 @@ module Prism::Core
     @last_mouse = {} of MouseButton => Bool
     @last_keys = {} of Key => Bool
 
-    def initialize(@window : Prism::Core::Window(Key, MouseButton))
+    def initialize(@window : RenderLoop::Window(Key, MouseButton))
     end
 
     # Processes the window input during each update tick
@@ -75,12 +75,12 @@ module Prism::Core
     end
 
     # Returns the position of the mouse
-    def get_mouse_position : Prism::Core::Position
+    def get_mouse_position : RenderLoop::Position
       @window.cursor_position
     end
 
     # Sets the mouse position within the window
-    def set_mouse_position(position : Prism::Core::Position)
+    def set_mouse_position(position : RenderLoop::Position)
       @window.cursor_position = position
     end
 
@@ -90,7 +90,7 @@ module Prism::Core
     end
 
     # Returns the center of the window
-    def get_center : Prism::Core::Position
+    def get_center : RenderLoop::Position
       return {
         x: @window.size[:width] / 2.0f64,
         y: @window.size[:height] / 2.0f64,

@@ -1,4 +1,4 @@
-module Prism::Core
+module RenderLoop
   # Contains time information about the current tick
   struct Tick
     @current_time : Float64

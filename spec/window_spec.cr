@@ -1,6 +1,6 @@
 require "./spec_helper"
 
-describe Prism::Core::Window do
+describe RenderLoop::Window do
   # TODO: Write tests
 
   describe "#keys" do

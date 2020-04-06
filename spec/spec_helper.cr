@@ -1,5 +1,5 @@
 require "spec"
-require "../src/prism-core"
+require "../src/render_loop"
 
 enum Key
   Key1
@@ -11,21 +11,21 @@ enum MouseButton
   Button2
 end
 
-class TestGame < Prism::Core::Engine
-  def tick(tick : Prism::Core::Tick, input : Prism::Core::Input)
+class TestGame < RenderLoop::Engine
+  def tick(tick : RenderLoop::Tick, input : RenderLoop::Input)
   end
 end
 
-class TestWindow < Prism::Core::Window(Key, MouseButton)
+class TestWindow < RenderLoop::Window(Key, MouseButton)
   def should_close? : Bool
     false
   end
 
-  def size : Prism::Core::Size
+  def size : RenderLoop::Size
     {width: 1f64, height: 1f64}
   end
 
-  def size(s : Prism::Core::Size)
+  def size(s : RenderLoop::Size)
   end
 
   def render
@@ -39,10 +39,10 @@ class TestWindow < Prism::Core::Window(Key, MouseButton)
     false
   end
 
-  def cursor_position=(position : Prism::Core::Position)
+  def cursor_position=(position : RenderLoop::Position)
   end
 
-  def cursor_position : Prism::Core::Position
+  def cursor_position : RenderLoop::Position
     {
       x: 1f64,
       y: 1f64,

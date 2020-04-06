@@ -1,4 +1,4 @@
-module Prism::Core
+module RenderLoop
   # Produces an abstraction around a window object
   # so you can use any window context you want.
   # The generics `Key` and `MouseButton` are enums
@@ -12,8 +12,8 @@ module Prism::Core
     abstract def render
     abstract def key_pressed?(k : Key) : Bool
     abstract def mouse_button_pressed?(b : MouseButton) : Bool
-    abstract def cursor_position : Prism::Core::Position
-    abstract def cursor_position=(position : Prism::Core::Position)
+    abstract def cursor_position : RenderLoop::Position
+    abstract def cursor_position=(position : RenderLoop::Position)
     # abstract def cursor_visible? : Bool
     abstract def cursor_visible=(visible : Bool)
 

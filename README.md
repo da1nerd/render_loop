@@ -1,6 +1,13 @@
-# prism-core
+# render_loop
 
-These are a set of generic tools for building a rendering engine with any graphics context you want.
+A generic rendering loop that can be used as the foundation of any program that needs to render something to the screen. e.g. a 3D game.
+
+There are no dependencies, and this won't draw anything for you on it's own.
+What it does give you is:
+
+* A loop - that will manage renders and udpates based on a specified framerate.
+* A window interface - so you can use your favorite rendering context (e.g. GLFW, etc.).
+* An engine interface - so you can configure things like a rendering engine, game engine, physics engine, etc.
 
 ## Installation
 
@@ -8,8 +15,8 @@ These are a set of generic tools for building a rendering engine with any graphi
 
    ```yaml
    dependencies:
-     prism-core:
-       github: neutrinog/prism-core
+     render_loop:
+       github: neutrinog/render_loop
    ```
 
 2. Run `shards install`
@@ -17,7 +24,7 @@ These are a set of generic tools for building a rendering engine with any graphi
 ## Usage
 
 ```crystal
-require "prism-core"
+require "render_loop"
 ```
 
 TODO: Write usage instructions here
@@ -28,7 +35,7 @@ TODO: Write development instructions here
 
 ## Contributing
 
-1. Fork it (<https://github.com/neutrinog/prism-core/fork>)
+1. Fork it (<https://github.com/neutrinog/render_loop/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
