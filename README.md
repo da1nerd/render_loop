@@ -7,7 +7,7 @@ A generic rendering loop that can be used as the foundation of any program that 
 There are no dependencies, and this won't draw anything for you on it's own.
 What it does give you is:
 
-* A loop - that will manage renders and udpates based on a specified framerate.
+* A loop - that will manage renders and updates based on a specified framerate.
 * A window interface - so you can use your favorite rendering context (e.g. GLFW, etc.).
 * An engine interface - so you can configure things like a rendering engine, game engine, physics engine, etc.
 
