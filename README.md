@@ -1,4 +1,6 @@
 # render_loop
+[![GitHub release](https://img.shields.io/github/release/neutrinog/render_loop.svg)](https://github.com/neutrinog/render_loop/releases)
+[![Build Status](https://travis-ci.org/neutrinog/render_loop.svg?branch=master)](https://travis-ci.org/neutrinog/render_loop)
 
 A generic rendering loop that can be used as the foundation of any program that needs to render something to the screen. e.g. a 3D game.
 
