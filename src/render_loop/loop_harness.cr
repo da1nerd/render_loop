@@ -40,6 +40,7 @@ module RenderLoop
 
       # frames = 0
       # frame_counter = 0
+      window.startup
       @engines.each do |t|
         t.startup
       end

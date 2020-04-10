@@ -5,10 +5,11 @@ module RenderLoop
   # that define the available values.
   # TODO: maybe pass in the cursor as a generic as well so we we can reduce boilerplate.
   abstract class Window(Key, MouseButton)
+    abstract def startup
     abstract def should_close? : Bool
     abstract def size : Size
     abstract def size(s : Size)
-    # This give the window an opportunity to paint to the screen
+    # This gives the window an opportunity to paint to the screen
     abstract def render
     abstract def key_pressed?(k : Key) : Bool
     abstract def mouse_button_pressed?(b : MouseButton) : Bool
