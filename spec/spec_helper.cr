@@ -17,6 +17,9 @@ class TestGame < RenderLoop::Engine
 end
 
 class TestWindow < RenderLoop::Window(Key, MouseButton)
+  def startup
+  end
+
   def should_close? : Bool
     false
   end

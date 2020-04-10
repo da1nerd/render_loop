@@ -1,14 +1,4 @@
 module RenderLoop
-  alias Size = {width: Int32, height: Int32}
-  alias Position = {x: Float64, y: Float64}
-
-  struct Cursor
-    property position, visible
-
-    def initialize(@position : RenderLoop::Position, @visible : Bool)
-    end
-  end
-
   # Provides a helpful wrapper over window input.
   class Input(Key, MouseButton)
     @last_mouse = {} of MouseButton => Bool

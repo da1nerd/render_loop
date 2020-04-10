@@ -7,8 +7,8 @@ module RenderLoop
   abstract class Window(Key, MouseButton)
     abstract def startup
     abstract def should_close? : Bool
-    abstract def size : Size
-    abstract def size(s : Size)
+    abstract def size : RenderLoop::Size
+    abstract def size(s : RenderLoop::Size)
     # This gives the window an opportunity to paint to the screen
     abstract def render
     abstract def key_pressed?(k : Key) : Bool
