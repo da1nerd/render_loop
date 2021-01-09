@@ -38,7 +38,7 @@ module RenderLoop
 
       input = RenderLoop::Input.new(window)
 
-      # frames = 0
+      frames = 0
       # frame_counter = 0
       window.startup
       @engines.each do |t|
@@ -94,7 +94,7 @@ module RenderLoop
           @engines.each do |e|
             e.flush
           end
-          # frames += 1
+          frames += 1
         else
           # sleep for 1 millisecond
           sleep(Time::Span.new(nanoseconds: 1000000))

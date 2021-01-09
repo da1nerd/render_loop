@@ -8,6 +8,7 @@ module RenderLoop
 
     # Called at each iteration of the main loop.
     # This is when game state should be updated.
+    # TODO: instead of `Input` we should pass in the `Window`.
     abstract def tick(tick : RenderLoop::Tick, input : RenderLoop::Input)
 
     # Called at intervals desigated by the configured frame rate.

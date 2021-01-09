@@ -1,5 +1,7 @@
 module RenderLoop
   # Provides a helpful wrapper over window input.
+  # TODO: Most of this is implementation specific and shouldn't be part of this lib.
+
   class Input(Key, MouseButton)
     @last_mouse = {} of MouseButton => Bool
     @last_keys = {} of Key => Bool
@@ -24,7 +26,7 @@ module RenderLoop
 
     # Checks if the key was pressed in this frame
     def get_key_pressed(key_code : Key) : Bool
-      return get_key(key_code) && !@last_keys[key_code]
+      return get_key(key_code) && (!@last_keys.has_key(key_code) || !@last_keys[key_code])
     end
 
     # Returns an array of keys that are currently pressed
@@ -46,7 +48,7 @@ module RenderLoop
     # Checks if the key was released in this frame
     def get_key_released(key_code : Key) : Bool
       # TODO: check that looking up the key from last keys is not null
-      return !get_key(key_code) && @last_keys[key_code]
+      return !get_key(key_code) && @last_keys.has_key?(key_code) && @last_keys[key_code]
     end
 
     # Check if the mouse button is currently down
@@ -56,12 +58,12 @@ module RenderLoop
 
     # Checks if the mouse button was pressed in this frame
     def get_mouse_pressed(mouse_button : MouseButton) : Bool
-      return get_mouse(mouse_button) && !@last_mouse[mouse_button]
+      return get_mouse(mouse_button) && (!@last_mouse.has_key?(mouse_button) || !@last_mouse[mouse_button])
     end
 
     # Checks if the mouse button was released in this frame
     def get_mouse_released(mouse_button : MouseButton) : Bool
-      return !get_mouse(mouse_button) && @last_mouse[mouse_button]
+      return !get_mouse(mouse_button) && @last_mouse.has_key?(mouse_button) && @last_mouse[mouse_button]
     end
 
     # Returns the position of the mouse
