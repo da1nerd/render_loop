@@ -19,12 +19,14 @@ module RenderLoop
       end
     end
 
+    # Returns an array of all keys
     def keys
-      @last_keys
+      @last_keys.keys
     end
 
+    # Returns an array of all buttons
     def mouse_buttons
-      @last_mouse
+      @last_mouse.keys
     end
 
     # Returns an array of buttons that are currently pressed
