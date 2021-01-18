@@ -19,6 +19,16 @@ module RenderLoop
       end
     end
 
+    # Returns the keys that are currently pressed
+    def keys
+      @last_keys
+    end
+
+    # Returns the mouse buttons that are currently pressed
+    def mouse_buttons
+      @last_mouse
+    end
+
     # Checks if the key is currently down
     def get_key(key_code : Key) : Bool
       return @window.key_pressed?(key_code.as(Key))

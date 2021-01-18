@@ -1,6 +1,6 @@
 # render_loop
-[![GitHub release](https://img.shields.io/github/release/neutrinog/render_loop.svg)](https://github.com/neutrinog/render_loop/releases)
-[![Build Status](https://travis-ci.org/neutrinog/render_loop.svg?branch=master)](https://travis-ci.org/neutrinog/render_loop)
+[![GitHub release](https://img.shields.io/github/release/da1nerd/render_loop.svg)](https://github.com/da1nerd/render_loop/releases)
+[![Build Status](https://travis-ci.org/da1nerd/render_loop.svg?branch=master)](https://travis-ci.org/da1nerd/render_loop)
 
 A generic rendering loop that can be used as the foundation of any program that needs to render something to the screen. e.g. a 3D game.
 
@@ -18,7 +18,7 @@ What it does give you is:
    ```yaml
    dependencies:
      render_loop:
-       github: neutrinog/render_loop
+       github: da1nerd/render_loop
    ```
 
 2. Run `shards install`
@@ -37,7 +37,7 @@ TODO: Write development instructions here
 
 ## Contributing
 
-1. Fork it (<https://github.com/neutrinog/render_loop/fork>)
+1. Fork it (<https://github.com/da1nerd/render_loop/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -45,4 +45,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [Joel](https://github.com/neutrinog) - creator and maintainer
+- [Joel](https://github.com/da1nerd) - creator and maintainer
