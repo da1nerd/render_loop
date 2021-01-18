@@ -21,12 +21,12 @@ module RenderLoop
 
     # Returns the keys that are currently pressed
     def keys
-      @last_keys
+      @last_keys.keys
     end
 
     # Returns the mouse buttons that are currently pressed
     def mouse_buttons
-      @last_mouse
+      @last_mouse.keys
     end
 
     # Checks if the key is currently down
@@ -40,6 +40,7 @@ module RenderLoop
     end
 
     # Returns an array of keys that are currently pressed
+    # DEPRECATED: use `#keys` instead
     def get_keys : Array(Key)
       keys = [] of Key
       @last_keys.keys.each do |k|
