@@ -45,7 +45,7 @@ module RenderLoop
 
     # Checks if the key was pressed in this frame
     def get_key_pressed(key_code : Key) : Bool
-      return get_key(key_code) && (!@last_keys.has_key(key_code) || !@last_keys[key_code])
+      return get_key(key_code) && (!@last_keys.has_key?(key_code) || !@last_keys[key_code])
     end
 
     # Returns an array of keys that are currently pressed
