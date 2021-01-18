@@ -19,7 +19,15 @@ module RenderLoop
       end
     end
 
-    # Returns the mouse buttons that are currently pressed
+    def keys
+      @last_keys
+    end
+
+    def mouse_buttons
+      @last_mouse
+    end
+
+    # Returns an array of buttons that are currently pressed
     def get_mouse_buttons
       buttons = [] of MouseButton
       @last_mouse.keys.each do |k|
